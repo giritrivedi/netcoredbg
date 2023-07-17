@@ -180,11 +180,13 @@ namespace NetCoreDbg
         /// <param name="inMemoryPdbSize">in memory PDB size</param>
         /// <param name="readMemory">read memory callback</param>
         /// <returns>Symbol reader handle or zero if error</returns>
-        internal static IntPtr LoadSymbolsForModule([MarshalAs(UnmanagedType.LPWStr)] string assemblyPath, bool isFileLayout, ulong loadedPeAddress, int loadedPeSize, 
-            ulong inMemoryPdbAddress, int inMemoryPdbSize, ReadMemoryDelegate readMemory)
+        [UnmanagedCallersOnly]
+        internal unsafe static IntPtr LoadSymbolsForModule(IntPtr assemblyPathPtr, bool isFileLayout, ulong loadedPeAddress, int loadedPeSize, ulong inMemoryPdbAddress, int inMemoryPdbSize, IntPtr readMemoryPtr)
         {
             try
             {
+                ReadMemoryDelegate readMemory = Marshal.GetDelegateForFunctionPointer<ReadMemoryDelegate>(readMemoryPtr);
+                string assemblyPath = Marshal.PtrToStringUTF8(assemblyPathPtr);
                 TargetStream peStream = null;
                 if (assemblyPath == null && loadedPeAddress != 0)
                 {
