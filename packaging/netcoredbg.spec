@@ -60,6 +60,10 @@ Requires: coreclr
 %define ARCH ARM64
 %endif
 
+%ifarch s390x
+%define ARCH S390X
+%endif
+
 %description
 This is a CoreCLR debugger for Tizen.
 

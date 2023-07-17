@@ -36,7 +36,6 @@ if ("${CORECLR_DIR}" STREQUAL "")
 
     set(CORECLR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.coreclr/src/coreclr)
 endif()
-
 # Fetch .NET SDK binaries if necessary
 if ("${DOTNET_DIR}" STREQUAL "" AND ${BUILD_MANAGED})
     set(DOTNET_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.dotnet)
@@ -62,6 +61,7 @@ if ("${DOTNET_DIR}" STREQUAL "" AND ${BUILD_MANAGED})
             message(FATAL_ERROR "Fatal error when installing dotnet")
         endif()
     else()
+#[[
         execute_process(
             COMMAND bash -c "curl -sSL \"https://dot.net/v1/dotnet-install.sh\" | bash /dev/stdin --channel \"${DOTNET_CHANNEL}\" --install-dir \"${DOTNET_DIR}\" --verbose"
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -69,5 +69,6 @@ if ("${DOTNET_DIR}" STREQUAL "" AND ${BUILD_MANAGED})
         if (NOT "${retcode}" STREQUAL "0")
             message(FATAL_ERROR "Fatal error when installing dotnet")
         endif()
+]]
     endif()
 endif()

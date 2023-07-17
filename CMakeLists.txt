@@ -15,7 +15,7 @@ set(BUILD_MANAGED ON CACHE BOOL "Build managed part")
 set(DBGSHIM_DIR "" CACHE FILEPATH "Path to dbgshim library directory")
 
 function(clr_unknown_arch)
-    message(FATAL_ERROR "Only AMD64, ARM64, ARM, ARMEL, I386 and WASM are supported")
+	message(FATAL_ERROR "Only AMD64, ARM64, ARM, ARMEL, I386, WASM and S390X are supported")
 endfunction()
 
 if (WIN32)
@@ -75,11 +75,13 @@ message("Building with ${CORECLR_VERSION} CoreCLR")
 if (NOT IS_DIRECTORY "${CORECLR_SRC_DIR}/pal")
     message(FATAL_ERROR "Invalid CoreCLR source directory")
 endif()
+#[[
 if (NOT "${DOTNET_DIR}" STREQUAL "")
     if (NOT IS_DIRECTORY "${DOTNET_DIR}/shared/Microsoft.NETCore.App")
         message(FATAL_ERROR "Invalid .NET SDK directory")
     endif()
 endif()
+]]
 
 
 # Determine version, VERSION macro might be passed via command line.

@@ -32,6 +32,8 @@ static uint64_t GetSP(CONTEXT *context)
     return (uint64_t)(size_t)context->Sp;
 #elif defined(_TARGET_ARM64_)
     return (uint64_t)(size_t)context->Sp;
+#elif defined(_TARGET_S390X_)
+    return (uint64_t)(size_t)context->R15;
 #else
 #error "Unsupported platform"
 #endif
