@@ -27,6 +27,7 @@ elseif (CLR_CMAKE_PLATFORM_ARCH_S390X)
   add_definitions(-DS390X4)
   add_definitions(-DBIT64=1)          # CoreClr <= 3.x
   add_definitions(-DHOST_64BIT=1)     # CoreClr > 3.x
+  add_definitions(-DHOST_S390X)
 else ()
   clr_unknown_arch()
 endif ()
